@@ -35,14 +35,11 @@ export const HomePage = () => {
   return (
     <HeroSectionWrapper>
       <HeroContent>
-        <Heading>Welcome to My Website</Heading>
+        <Heading>Chicago Art Institute Wiki</Heading>
         <Description>
           Here's a brief description of what you can find on my website.
         </Description>
-        <SearchInput type="text" placeholder="Search..." />
       </HeroContent>
-      <ArtCard />
-      <ArtCard />
       <ArtCard />
     </HeroSectionWrapper>
   );

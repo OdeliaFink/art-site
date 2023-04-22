@@ -30,11 +30,19 @@ const NavItem = styled.a`
 const HamburgerIcon = styled.div`
   display: none;
   cursor: pointer;
+
   @media (max-width: 768px) {
     display: block;
+    color: red;
   }
 `;
-
+const SearchInput = styled.input`
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+`;
 const NavMenu = styled.div`
   display: flex;
   justify-content: space-between;
@@ -61,7 +69,9 @@ const NavigationBar = () => {
         </NavMenu>
         <NavMenu>
           <NavItem href="/about">About</NavItem>
-          <NavItem href="/contact">Contact</NavItem>
+          <NavItem>
+            <SearchInput type="text" placeholder="Search..." />
+          </NavItem>
         </NavMenu>
       </NavContainer>
       {/* <div style={{ borderBottom: '10px solid black' }} /> */}

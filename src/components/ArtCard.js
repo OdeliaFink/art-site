@@ -2,27 +2,18 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
-// const Gallery = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   flex-wrap: wrap;
-//   gap: 20px;
-
-// `;
-
-const Gallery = styled.ul`
+const Gallery = styled.div`
   display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  gap: 20px;
 `;
 
 const GalleryColumn = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: calc(33.33% - 10px);
+  flex-basis: calc(33.33% - 10px);
 `;
 
 const GalleryImage = styled.img`
@@ -54,34 +45,42 @@ export const ArtCard = () => {
     console.log(artworks, 'DATA');
   }, [artworks]);
 
-  const galleryItems = artworks.data
-    ? artworks.data
-        .filter(
-          (item) => item.image_id !== '342b2214-04d5-de63-b577-55a08a618960'
-        )
-        .map((item) => (
-          <div
-            className="article-card"
-            style={{
-              border: '4px solid grey',
-              display: 'flex',
-              flexDirection: 'column',
-              width: 'max-content',
-            }}
-          >
-            <img
-              src={`https://www.artic.edu/iiif/2/${item.image_id}/full/843,/0/default.jpg`}
-              alt={item.title}
-              style={{ width: '100%' }}
-            />
-            <div style={{ lineHeight: '0rem' }}>
-              <h2>{item.title}</h2>
-              <h5>{item.date_display}</h5>
-              <p>{item.place_of_origin}</p>
+  const galleryItems =
+    artworks.data && artworks.data.length > 0
+      ? artworks.data
+          .filter(
+            (item) => item.image_id !== '342b2214-04d5-de63-b577-55a08a618960'
+          )
+          .map((item) => (
+            <div
+              key={item.id}
+              className="article-card"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: 'max-content',
+                flexGrow: 1,
+              }}
+            >
+              <img
+                src={`https://www.artic.edu/iiif/2/${item.image_id}/full/843,/0/default.jpg`}
+                alt={item.title}
+                style={{ width: '100%' }}
+              />
+              <div style={{ lineHeight: '0rem' }}>
+                <h2>{item.title}</h2>
+                <h5>{item.date_display}</h5>
+                <p>{item.place_of_origin}</p>
+              </div>
             </div>
-          </div>
-        ))
-    : [];
+          ))
+      : [];
+
+  const midIndex = Math.ceil(galleryItems.length / 2);
+
+  const firstHalf = galleryItems.slice(0, midIndex);
+  const secondHalf = galleryItems.slice(midIndex);
+
   return (
     <div
       className="main-container"
@@ -92,11 +91,11 @@ export const ArtCard = () => {
         margin: '20px',
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        {galleryItems}
-      </div>
+      <Gallery>
+        <GalleryColumn>{firstHalf}</GalleryColumn>
+        <GalleryColumn>{secondHalf}</GalleryColumn>
+      </Gallery>
     </div>
-    // </div>
   );
 };
 
